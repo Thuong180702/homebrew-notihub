@@ -1,6 +1,6 @@
 cask "notihub" do
-  version "1.2.0"
-  sha256 "4b860c2254a5f83e83988fb802257e705f0bd8a4f3b8e2512e964ad734b456dc"
+  version "1.3.0"
+  sha256 "50bef908d980334ff8c35a89ada3eebf1db8cdce6d644716341e5481e447aa87"
 
   url "https://github.com/Thuong180702/notihub/releases/download/v#{version}/notihub-v#{version}-mac.dmg"
   name "notihub"
@@ -9,6 +9,12 @@ cask "notihub" do
 
   app "notihub.app"
 
+  # notihub ships its own updater (it downloads the release zip, checksums it
+  # against the sha256 GitHub publishes, and replaces the bundle in place), so
+  # Homebrew should not try to manage its version — same arrangement as the
+  # other self-updating casks. `brew upgrade` leaves it alone unless --greedy.
+  auto_updates true
+
   zap trash: [
     "~/Library/Application Support/notihub",
     "~/Library/Preferences/io.github.thuong180702.notihub.app.plist",
@@ -16,11 +22,14 @@ cask "notihub" do
   ]
 
   caveats <<~EOS
-    notihub is signed ad-hoc, not notarized by Apple (no paid Developer ID yet).
-    macOS Gatekeeper will refuse to open it with "notihub is damaged and can't
-    be opened" on first launch. This isn't corruption — it's Gatekeeper
-    rejecting an unnotarized app. Clear the quarantine flag once to fix it:
+    notihub is signed ad-hoc, not notarized by Apple (no paid Developer ID yet),
+    so macOS Gatekeeper will refuse this first launch with "notihub is damaged
+    and can't be opened". This isn't corruption — it's Gatekeeper rejecting an
+    unnotarized app. Clear the quarantine flag once to fix it:
 
       xattr -dr com.apple.quarantine /Applications/notihub.app
+
+    This applies to the install only. notihub updates itself from then on, and
+    its own downloads are never quarantined.
   EOS
 end
