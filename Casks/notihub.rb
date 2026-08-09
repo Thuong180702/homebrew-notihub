@@ -4,7 +4,7 @@ cask "notihub" do
 
   url "https://github.com/Thuong180702/notihub/releases/download/v#{version}/notihub-v#{version}-mac.dmg"
   name "notihub"
-  desc "Native macOS notification hub for web apps (Messenger, Zalo, Gmail, etc.)"
+  desc "Native notification hub for web apps (Messenger, Zalo, Gmail, etc.)"
   homepage "https://github.com/Thuong180702/notihub"
 
   # notihub ships its own updater (it downloads the release zip, checksums it
