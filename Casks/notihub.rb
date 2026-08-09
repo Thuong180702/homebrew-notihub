@@ -1,19 +1,20 @@
 cask "notihub" do
-  version "1.3.0"
-  sha256 "50bef908d980334ff8c35a89ada3eebf1db8cdce6d644716341e5481e447aa87"
+  version "1.3.4"
+  sha256 "1fea8163383193fe8bc71b260a11c42364a38291f4b96215b2ff41210efd4af9"
 
   url "https://github.com/Thuong180702/notihub/releases/download/v#{version}/notihub-v#{version}-mac.dmg"
   name "notihub"
   desc "Native macOS notification hub for web apps (Messenger, Zalo, Gmail, etc.)"
   homepage "https://github.com/Thuong180702/notihub"
 
-  app "notihub.app"
-
   # notihub ships its own updater (it downloads the release zip, checksums it
   # against the sha256 GitHub publishes, and replaces the bundle in place), so
   # Homebrew should not try to manage its version — same arrangement as the
   # other self-updating casks. `brew upgrade` leaves it alone unless --greedy.
   auto_updates true
+  depends_on :macos
+
+  app "notihub.app"
 
   zap trash: [
     "~/Library/Application Support/notihub",
